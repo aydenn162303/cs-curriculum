@@ -25,14 +25,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+
+
     }
-    
+
     //for organization, put other built-in Unity functions here
-    
-    
-    
-    
-    
+
+    private void FixedUpdate()
+    {
+
+
+
+    }
+
+
+
     //after all Unity functions, your own functions can go here
 }
