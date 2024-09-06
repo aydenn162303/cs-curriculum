@@ -253,4 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6dd32abcac042189a319a30dc194bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 6
+  trans: {fileID: 7819348094328437333}
   overworld: 1

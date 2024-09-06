@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float speed = 4;
+    float xDirection;
+    float yDirection;
+    float xVector;
+    float yVector;
+    public Transform trans;
+
     public bool overworld; 
 
     private void Start()
     {
         GetComponentInChildren<TopDown_AnimatorController>().enabled = overworld;
         GetComponentInChildren<Platformer_AnimatorController>().enabled = !overworld; //what do you think ! means?
-        
-        
+
         if (overworld)
         {
             GetComponent<Rigidbody2D>().gravityScale = 0f;
@@ -25,22 +31,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        xDirection = Input.GetAxis("Horizontal");
+        yDirection = Input.GetAxis("Vertical");
 
+        xVector = Time.deltaTime * speed * xDirection;
+        yVector = Time.deltaTime * speed * yDirection;
 
-
-    }
-
-    //for organization, put other built-in Unity functions here
-
-    private void FixedUpdate()
-    {
-
-
+        trans.Translate(new Vector3(xVector, yVector, 0));
 
     }
-
-
-
     //after all Unity functions, your own functions can go here
 }
