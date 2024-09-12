@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     float yDirection;
     float xVector;
     float yVector;
+    float coin = 0;
     public Transform trans;
 
     public bool overworld; 
@@ -29,6 +30,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            coin = coin + 1;
+            print("I have " + coin + " coins! woah.");
+
+        }
+
+
+    }
+
+
     private void Update()
     {
         xDirection = Input.GetAxis("Horizontal");
@@ -38,6 +52,7 @@ public class PlayerController : MonoBehaviour
         yVector = Time.deltaTime * speed * yDirection;
 
         trans.Translate(new Vector3(xVector, yVector, 0));
+
 
     }
     //after all Unity functions, your own functions can go here
