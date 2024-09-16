@@ -10,13 +10,14 @@ public class PlayerController : MonoBehaviour
     float yDirection;
     float xVector;
     float yVector;
-    float coin = 0;
     public Transform trans;
+    GameManager gm;
 
     public bool overworld; 
 
     private void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         GetComponentInChildren<TopDown_AnimatorController>().enabled = overworld;
         GetComponentInChildren<Platformer_AnimatorController>().enabled = !overworld; //what do you think ! means?
 
@@ -34,8 +35,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            coin = coin + 1;
-            print("I have " + coin + " coins! woah.");
+            //Figure out why coins is inaccessable
+            Object.Destroy(other.gameObject);
+            gm.Coins += 1;
+            print("we have " + gm.Coins + " coins!");
 
         }
 
