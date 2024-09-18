@@ -4,16 +4,7 @@ using UnityEngine;
 
 public class deleteself : MonoBehaviour
 {
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Coin"))
-        {
-            
-
-        }
-
-
-    }
-
+    
+    
+    
 }

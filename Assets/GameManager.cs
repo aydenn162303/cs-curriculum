@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
 
     public int Coins;
     public static GameManager gm;
-
+    
+    
+    
     private void Awake()
     {
         if(gm != null && gm!= this)
