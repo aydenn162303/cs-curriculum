@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
-    public int Coins;
+    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI healthText;
+    private int Coins;
     private int health = 10;
     private int MAX_HEALTH = 10;
     public static GameManager gm;
@@ -16,6 +19,12 @@ public class GameManager : MonoBehaviour
         return health;
     }
 
+    private void Start()
+    {
+        coinText.text = "Coins: " + Coins;
+        healthText.text = "Health: " + health;
+    }
+
     public void changeHealth(int amount)
     {
         health += amount;
@@ -23,14 +32,13 @@ public class GameManager : MonoBehaviour
         {
             health = MAX_HEALTH;
         }
-
+        
+        healthText.text = "Health: " + health;
+        
         if (health < 1)
         {
             Die();
         }
-
-
-        
     }
 
     void Die()
@@ -51,6 +59,19 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    public void AM_Coins(int cnumber)
+    {
+        Coins = Coins + cnumber;
+        coinText.text = "Coins: " + Coins;
+    }
+
+    public int howManyCoins()
+    {
+        return Coins;
+    }
+
+
 
 
 

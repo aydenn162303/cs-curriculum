@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
         {
             //Figure out why coins is inaccessable
             Object.Destroy(other.gameObject);
-            gm.Coins += 1;
-            print("we have " + gm.Coins + " coins!");
+            gm.AM_Coins(1);
+            print("we have " + gm.howManyCoins() + " coins!");
 
         }
 
