@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int Coins;
     private int health = 10;
     private int MAX_HEALTH = 10;
+    private bool udied = false;
     public static GameManager gm;
 
     public int getHealth()
@@ -44,7 +46,17 @@ public class GameManager : MonoBehaviour
     void Die()
     {
         print("You died lol");
-        //Restart the level or something
+        Coins = 0;
+        health = MAX_HEALTH;
+        udied = true;
+        SceneManager.LoadScene("Start");
+        
+        if (udied == true)
+        {
+            Destroy(gameObject);
+            //Remove this if something is weird
+        }
+        
     }
     
     private void Awake()

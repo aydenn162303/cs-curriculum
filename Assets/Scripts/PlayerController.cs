@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            //Figure out why coins is inaccessable
             Object.Destroy(other.gameObject);
             gm.AM_Coins(1);
             print("we have " + gm.howManyCoins() + " coins!");
