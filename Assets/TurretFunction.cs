@@ -19,16 +19,14 @@ public class TurretFunction : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        print("collision");
         if (other.gameObject.CompareTag("Player") && cooldown < 0)
         {
-            print("player detected");
             GameObject clone = Instantiate(bulletPrefab, transform.position, quaternion.identity);
             Bullet script = clone.GetComponent<Bullet>();
             script.targetPos = other.gameObject.transform.position;
             cooldown = fireRate;
         }
-        
+         
     }
     
     void Update()
