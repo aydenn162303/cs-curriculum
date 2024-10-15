@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,11 +14,22 @@ public class enemy : MonoBehaviour
     private int currentPoint;
     private Vector2 targetPos;
     private bool seePl = false;
+    private States state;
+    private GameObject player;
+
+    private enum States
+    {
+        patrol,
+        chase,
+        attack,
+        die
+    }
     
 
     void Start()
     {
-        _speed = 2f;
+        state = States.patrol;
+        _speed = 3.1f;
         currentPoint = 0;
     }
 
@@ -25,8 +38,27 @@ public class enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            seePl = true;
             targetPos = other.gameObject.transform.position;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+
+            player = other.GameObject();
+            if (state == States.chase)
+            {
+                state = States.attack;
+                print("enter attack");
+            }
+
+            if (state == States.patrol)
+            {
+                state = States.chase;
+                print("enter chase");
+            }
         }
     }
 
@@ -34,36 +66,62 @@ public class enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            seePl = false;
+            if (state == States.chase)
+            {
+                state = States.patrol;
+                print("exit to patrol");
+            }
+
+            if (state == States.attack)
+            {
+                state = States.chase;
+                print("exit to chase");
+            }
         }
     }
 
     void Update()
     {
-        if (seePl)
+        
+        if (state == States.chase)
         {
-            transform.position =Vector2.MoveTowards(transform.position,targetPos, _speed * Time.deltaTime);
+            Chase();
+
         }
-        else
+
+        if (state == States.patrol)
         {
-            transform.position =Vector2.MoveTowards(transform.position,waypoints[currentPoint].position, _speed * Time.deltaTime);
-            
-            if (Vector2.Distance(transform.position, waypoints[currentPoint].position) < 0.2f)
-            {
-                if (currentPoint < 2)
-                {
-                    currentPoint += 1;
-                }
-                else
-                {
-                    currentPoint = 0;
-                }
-                
-            }
-            
+            Patrol();
+
         }
         
     }
-    
+
+    void Chase()
+    {
+        //move towards pl
+        transform.position =Vector2.MoveTowards(transform.position,targetPos, _speed * Time.deltaTime);
+        
+    }
+
+
+    void Patrol()
+    {
+        transform.position =Vector2.MoveTowards(transform.position,waypoints[currentPoint].position, _speed * Time.deltaTime);
+            
+        if (Vector2.Distance(transform.position, waypoints[currentPoint].position) < 0.2f)
+        {
+            if (currentPoint < 2)
+            {
+                currentPoint += 1;
+            }
+            else
+            {
+                currentPoint = 0;
+            }
+                
+        }
+    }
+
 }
 
