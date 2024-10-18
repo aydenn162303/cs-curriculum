@@ -15,7 +15,11 @@ public class enemy : MonoBehaviour
     private Vector2 targetPos;
     private bool seePl = false;
     private States state;
+    private float attackDelay = 0.2f;
+    private float attackDelayWait = 0.5f;
+    public GameManager gm;
     private GameObject player;
+
 
     private enum States
     {
@@ -28,6 +32,7 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         state = States.patrol;
         _speed = 3.1f;
         currentPoint = 0;
@@ -48,6 +53,7 @@ public class enemy : MonoBehaviour
         {
 
             player = other.GameObject();
+            
             if (state == States.chase)
             {
                 state = States.attack;
@@ -59,6 +65,7 @@ public class enemy : MonoBehaviour
                 state = States.chase;
                 print("enter chase");
             }
+            
         }
     }
 
@@ -66,6 +73,9 @@ public class enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            //Reset the attack cooldown when it leaves a circle i kno
+            attackDelay = attackDelayWait;
+            
             if (state == States.chase)
             {
                 state = States.patrol;
@@ -77,22 +87,32 @@ public class enemy : MonoBehaviour
                 state = States.chase;
                 print("exit to chase");
             }
+            
         }
     }
 
     void Update()
     {
+        print("delay:" + attackDelay);
+        if (attackDelay < 0)
+        {
+            attackDelay = attackDelayWait;
+            hitPlayer();
+        }
         
         if (state == States.chase)
         {
             Chase();
-
         }
 
         if (state == States.patrol)
         {
             Patrol();
+        }
 
+        if (state == States.attack)
+        {
+            attackDelayFunction();
         }
         
     }
@@ -122,6 +142,20 @@ public class enemy : MonoBehaviour
                 
         }
     }
+
+    void attackDelayFunction()
+    {
+        attackDelay -= 1 * Time.deltaTime;
+    }
+
+    void hitPlayer()
+    {
+        //find a way to hit the player and stuffffflkjhrljrthegukehfkjerqhfeirul
+        gm.changeHealth(-2);
+        
+    }
+    
+    
 
 }
 
