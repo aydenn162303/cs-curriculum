@@ -19,6 +19,7 @@ public class enemy : MonoBehaviour
     private float attackDelayWait = 0.5f;
     public GameManager gm;
     private GameObject player;
+    private TopDown_EnemyAnimator animator;
 
 
     private enum States
@@ -32,6 +33,8 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<TopDown_EnemyAnimator>();
+        animator = GetComponentInChildren<TopDown_EnemyAnimator>();
         gm = FindObjectOfType<GameManager>();
         state = States.patrol;
         _speed = 3.1f;
@@ -73,9 +76,8 @@ public class enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //Reset the attack cooldown when it leaves a circle i kno
-            attackDelay = attackDelayWait;
-            
+            //ake it attack when it touches the player yay
+            attackDelay = 0.1f;
             if (state == States.chase)
             {
                 state = States.patrol;
@@ -96,7 +98,8 @@ public class enemy : MonoBehaviour
         print("delay:" + attackDelay);
         if (attackDelay < 0)
         {
-            attackDelay = attackDelayWait;
+            attackDelay = 0.25f;
+            animator.Attack();
             hitPlayer();
         }
         
@@ -151,7 +154,7 @@ public class enemy : MonoBehaviour
     void hitPlayer()
     {
         //find a way to hit the player and stuffffflkjhrljrthegukehfkjerqhfeirul
-        gm.changeHealth(-2);
+        gm.changeHealth(-1);
         
     }
     
