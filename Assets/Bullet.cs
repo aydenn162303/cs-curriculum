@@ -18,11 +18,11 @@ public class Bullet : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
     }
 
-    //FOR DEBUGGING BULLET SPAWNING
+//FOR DEBUGGING BULLET SPAWNING
     //private void Start()
     //{
     //    print("one bullet spawned" + targetPos);
-    //}
+    //}    
 
     private void Update()
     {
