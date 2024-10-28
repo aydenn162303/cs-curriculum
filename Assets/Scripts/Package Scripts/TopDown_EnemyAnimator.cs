@@ -45,13 +45,17 @@ public class TopDown_EnemyAnimator : MonoBehaviour
 
         prevPos = transform.position;
 
+        if (Input.GetMouseButton(0))
+        {
+            Attack();
+        }
+
         IsAttacking = anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
     }
 
     // Call this function from another script for the orc to attack!
     public void Attack()
     {
-        print("Attackpl");
         anim.SetTrigger("Attack");
-    }   //anim.Play("AttackUp");
+    }
 }

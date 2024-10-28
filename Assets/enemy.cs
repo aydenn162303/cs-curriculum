@@ -20,8 +20,7 @@ public class enemy : MonoBehaviour
     public GameManager gm;
     private GameObject player;
     private TopDown_EnemyAnimator animator;
-    private int health = 5;
-    public GameObject axeItemPrefab;
+
 
     private enum States
     {
@@ -56,7 +55,7 @@ public class enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
 
-            player = other.gameObject;
+            player = other.GameObject();
             
             if (state == States.chase)
             {
@@ -108,44 +107,17 @@ public class enemy : MonoBehaviour
         {
             Chase();
         }
-    
+
         if (state == States.patrol)
         {
             Patrol();
         }
-    
+
         if (state == States.attack)
         {
             attackDelayFunction();
         }
-    
-        void Chase()
-        {
-            // Move towards player
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, _speed * Time.deltaTime);
-        }
-    
-        void Patrol()
-        {
-            transform.position = Vector2.MoveTowards(transform.position, waypoints[currentPoint].position, _speed * Time.deltaTime);
-    
-            if (Vector2.Distance(transform.position, waypoints[currentPoint].position) < 0.2f)
-            {
-                if (currentPoint < waypoints.Length - 1)
-                {
-                    currentPoint += 1;
-                }
-                else
-                {
-                    currentPoint = 0;
-                }
-            }
-        }
-    
-        void attackDelayFunction()
-        {
-            attackDelay -= Time.deltaTime;
-        }
+        
     }
 
     void Chase()
@@ -181,17 +153,11 @@ public class enemy : MonoBehaviour
 
     void hitPlayer()
     {
-        changeHealth(-1);
+        //find a way to hit the player and stuffffflkjhrljrthegukehfkjerqhfeirul
+        gm.changeHealth(-1);
+        
     }
-
-    void Die()
-    {
-    state = States.die;
-
-    Instantiate(axeItemPrefab, transform.position, Quaternion.identity);
-
-    Destroy(gameObject);
-    }
+    
     
 
 }

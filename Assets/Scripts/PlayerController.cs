@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     float xVector;
     float yVector;
     public Transform trans;
-    public bool invincible = false;
     GameManager gm;
 
     public bool overworld; 
@@ -56,10 +55,6 @@ public class PlayerController : MonoBehaviour
 
         trans.Translate(new Vector3(xVector, yVector, 0));
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            invincible = true;
-        }
 
     }
     //after all Unity functions, your own functions can go here
