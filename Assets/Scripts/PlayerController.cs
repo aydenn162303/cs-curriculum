@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     float yVector;
     public Transform trans;
     GameManager gm;
+    private TopDown_AnimatorController animatorController;
 
     public bool overworld; 
 
     private void Start()
     {
+        animatorController = FindObjectOfType<TopDown_AnimatorController>();
         gm = FindObjectOfType<GameManager>();
         GetComponentInChildren<TopDown_AnimatorController>().enabled = overworld;
         GetComponentInChildren<Platformer_AnimatorController>().enabled = !overworld; //what do you think ! means?
@@ -29,6 +31,9 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+        CheckAndSwitchWeapon();
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,6 +49,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void CheckAndSwitchWeapon()
+    {
+        if (gm.hasAxe)
+        {
+            animatorController.SwitchToAxe();
+        }
+        else
+        {
+            animatorController.SwitchToShovel();
+        }
+    }
 
     private void Update()
     {

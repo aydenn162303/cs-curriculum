@@ -5,21 +5,32 @@ using UnityEngine;
 public class DestroyCaveEntrance : MonoBehaviour
 {
 	private GameManager gm;
+	private bool isDestroyed = false; // Flag to track if the object is already destroyed
 
-	// References to the door states
+	// References to the doors
 	public GameObject nocollisiondoorremoved;
 	public GameObject collisiondoorremoved;
 
 	void Start()
 	{
 		gm = FindObjectOfType<GameManager>();
+		if (gm.hasAxe && !isDestroyed)
+		{
+			Destroy(collisiondoorremoved); 
+			Destroy(nocollisiondoorremoved); 
+			Destroy(gameObject); 
+			isDestroyed = true; // Set the flag to true
+		}
 	}
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.CompareTag("Player") && gm.hasAxe && Input.GetMouseButtonDown(0)) // 0 is the left mouse button
+		if (other.CompareTag("Player") && gm.hasAxe && Input.GetMouseButtonDown(0) && !isDestroyed) //left mouse button
 		{
-			Destroy(gameObject); // Destroy the cave wall
+			Destroy(collisiondoorremoved); 
+			Destroy(nocollisiondoorremoved); 
+			Destroy(gameObject); 
+			isDestroyed = true; // Set the flag to true
 		}
 	}
 }
