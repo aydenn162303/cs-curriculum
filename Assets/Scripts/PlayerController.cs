@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 4;
+    public float ySpeed = 6;
     float xDirection;
     float yDirection;
     float xVector;
@@ -22,14 +23,18 @@ public class PlayerController : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         GetComponentInChildren<TopDown_AnimatorController>().enabled = overworld;
         GetComponentInChildren<Platformer_AnimatorController>().enabled = !overworld; //what do you think ! means?
-
+        
+        
         if (overworld)
         {
             GetComponent<Rigidbody2D>().gravityScale = 0f;
+            ySpeed = 4;
+
         }
         else
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
+            ySpeed = 8;
         }
         CheckAndSwitchWeapon();
 
@@ -67,7 +72,7 @@ public class PlayerController : MonoBehaviour
         yDirection = Input.GetAxis("Vertical");
 
         xVector = Time.deltaTime * speed * xDirection;
-        yVector = Time.deltaTime * speed * yDirection;
+        yVector = Time.deltaTime * ySpeed * yDirection;
 
         trans.Translate(new Vector3(xVector, yVector, 0));
 
