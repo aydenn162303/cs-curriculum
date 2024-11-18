@@ -14,6 +14,12 @@ public class PlayerController : MonoBehaviour
     public Transform trans;
     GameManager gm;
     private TopDown_AnimatorController animatorController;
+    
+    private bool jump;
+
+    private RaycastHit2D leftray;
+    
+    private RaycastHit2D rightray;
 
     public bool overworld; 
 
@@ -34,10 +40,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
-            ySpeed = 8;
+            ySpeed = 0;
         }
-        CheckAndSwitchWeapon();
 
+        CheckAndSwitchWeapon();
 
     }
 
@@ -70,13 +76,26 @@ public class PlayerController : MonoBehaviour
     {
         xDirection = Input.GetAxis("Horizontal");
         yDirection = Input.GetAxis("Vertical");
-
+    
+        if (overworld != true)
+        {
+            jump = Input.GetKeyDown(KeyCode.Space);
+        }
+    
         xVector = Time.deltaTime * speed * xDirection;
         yVector = Time.deltaTime * ySpeed * yDirection;
-
+    
         trans.Translate(new Vector3(xVector, yVector, 0));
-
-
+    
+        leftray = Physics2D.Raycast(new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y), -Vector2.up, 0.9f);
+        rightray = Physics2D.Raycast(new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y), -Vector2.up, 0.9f);
+        Debug.DrawLine(new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y), new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y - 0.9f), Color.white);
+        Debug.DrawLine(new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y), new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y - 0.9f), Color.white);
+    
+        if ((leftray.collider != null || rightray.collider != null) && jump)
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 7.5f), ForceMode2D.Impulse);
+        }
     }
     //after all Unity functions, your own functions can go here
 }
