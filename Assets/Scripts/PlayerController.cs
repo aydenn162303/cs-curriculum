@@ -87,10 +87,10 @@ public class PlayerController : MonoBehaviour
     
         trans.Translate(new Vector3(xVector, yVector, 0));
     
-        leftray = Physics2D.Raycast(new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y), -Vector2.up, 0.9f);
-        rightray = Physics2D.Raycast(new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y), -Vector2.up, 0.9f);
-        Debug.DrawLine(new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y), new Vector2(transform.position.x + trans.localScale.x / 5, transform.position.y - 0.9f), Color.white);
-        Debug.DrawLine(new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y), new Vector2(transform.position.x - trans.localScale.x / 5, transform.position.y - 0.9f), Color.white);
+        leftray = Physics2D.Raycast(new Vector2(transform.position.x - trans.localScale.x / 6, transform.position.y), -Vector2.up, 0.9f);
+        rightray = Physics2D.Raycast(new Vector2(transform.position.x + trans.localScale.x / 6, transform.position.y), -Vector2.up, 0.9f);
+        Debug.DrawLine(new Vector2(transform.position.x + trans.localScale.x / 6, transform.position.y), new Vector2(transform.position.x + trans.localScale.x / 6, transform.position.y - 0.9f), Color.white);
+        Debug.DrawLine(new Vector2(transform.position.x - trans.localScale.x / 6, transform.position.y), new Vector2(transform.position.x - trans.localScale.x / 6, transform.position.y - 0.9f), Color.white);
     
         if ((leftray.collider != null || rightray.collider != null) && jump)
         {
