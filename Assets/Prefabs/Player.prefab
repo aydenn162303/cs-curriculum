@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8817025345248629567}
   - component: {fileID: 1283610988072705179}
   - component: {fileID: 7869803674047299266}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3557327843128524543}
   - component: {fileID: 5774960653562304022}
   - component: {fileID: 5674007548349034427}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  ySpeed: 6
   trans: {fileID: 7819348094328437333}
   overworld: 1
 --- !u!114 &5674007548349034427
@@ -269,3 +270,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb6d722281ec4763814432bd401b8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 0}
