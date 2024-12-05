@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D rightray;
 
     public bool overworld; 
+    public GameObject bombPrefab;
+
+    public bool facingRight = true;
 
     private void Start()
     {
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         xDirection = Input.GetAxis("Horizontal");
+        
         yDirection = Input.GetAxis("Vertical");
     
         if (overworld != true)
@@ -84,6 +88,7 @@ public class PlayerController : MonoBehaviour
     
         xVector = Time.deltaTime * speed * xDirection;
         yVector = Time.deltaTime * ySpeed * yDirection;
+        //left/right direction set variable
     
         trans.Translate(new Vector3(xVector, yVector, 0));
     
@@ -95,6 +100,8 @@ public class PlayerController : MonoBehaviour
         if ((leftray.collider != null || rightray.collider != null) && jump)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 7.5f), ForceMode2D.Impulse);
+            //temp spawn bomb THIS IS THE ISSUE I DIDNT TEST IT
+            GameObject clone = Instantiate(bombPrefab, facingRight ? transform.position - new Vector2(-30,0) : transform.position + new Vector2(30,0), Quaternion.identity);
         }
     }
     //after all Unity functions, your own functions can go here

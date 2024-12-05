@@ -31,10 +31,20 @@ public class Platformer_AnimatorController : MonoBehaviour
             if (Input.GetAxis("Horizontal") > 0)
             {
                 sprite.flipX = true;
+                PlayerController playerController = GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.facingRight = true;
+                }
             }
             else
             {
                 sprite.flipX = false;
+                PlayerController playerController = GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.facingRight = false;
+                }
             }
         }
         else

@@ -258,6 +258,8 @@ MonoBehaviour:
   ySpeed: 6
   trans: {fileID: 7819348094328437333}
   overworld: 1
+  bombPrefab: {fileID: 5790822057519619805, guid: d86de42769103493ea6d3ff527a7ac16,
+    type: 3}
 --- !u!114 &5674007548349034427
 MonoBehaviour:
   m_ObjectHideFlags: 0
