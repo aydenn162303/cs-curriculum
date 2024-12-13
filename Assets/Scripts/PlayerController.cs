@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bombPrefab;
 
     public bool facingRight = true;
+    private float throwCooldown = 0;
 
     private void Start()
     {
@@ -78,6 +79,15 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         xDirection = Input.GetAxis("Horizontal");
+
+        if (xDirection > 0)
+        {
+            facingRight = true;
+        }
+        else if (xDirection < 0)
+        {
+            facingRight = false;
+        }
         
         yDirection = Input.GetAxis("Vertical");
     
@@ -100,9 +110,31 @@ public class PlayerController : MonoBehaviour
         if ((leftray.collider != null || rightray.collider != null) && jump)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 7.5f), ForceMode2D.Impulse);
-            //temp spawn bomb THIS IS THE ISSUE I DIDNT TEST IT
-            GameObject clone = Instantiate(bombPrefab, facingRight ? transform.position - new Vector2(-30,0) : transform.position + new Vector2(30,0), Quaternion.identity);
         }
+
+        if (Input.GetMouseButton(0) && throwCooldown < 0 && !overworld)
+        {
+            throwCooldown = 2;
+            if (facingRight)
+            {
+                var _vector = transform.position;
+                _vector.x += 2;
+                GameObject clone = Instantiate(bombPrefab, _vector, Quaternion.identity);
+                bomb script = clone.GetComponent<bomb>();
+                script.force = 7f;
+            } 
+            else 
+            {
+                var _vector = transform.position;
+                _vector.x -= 2;
+                GameObject clone = Instantiate(bombPrefab, _vector, Quaternion.identity);
+                bomb script = clone.GetComponent<bomb>();
+                script.force = -7f;
+            }
+        }
+
+        throwCooldown -= Time.deltaTime;
+            
     }
     //after all Unity functions, your own functions can go here
 }
