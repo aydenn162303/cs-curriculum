@@ -7,7 +7,7 @@ public class bomb : MonoBehaviour
     private float bombTimer = 6f;
 
     private bool triggerCreated = false;
-    private bool waitToDestroy = 0.2f;
+    private float waitToDestroy = 0.2f;
     public float force = 7f;
 
     void Start()
@@ -40,17 +40,17 @@ public class bomb : MonoBehaviour
     private void DestroySelf()
     {
 
-        if (triggerCreated == false)
+        if (!triggerCreated)
         {
             createTrigger();
             triggerCreated = true;
         }
 
-        if (triggerCreated == true)
+        if (triggerCreated)
         {
             waitToDestroy -= Time.deltaTime;
 
-            if (waitToDestroy < 0)
+            if (waitToDestroy < 0f)
             {
                 Destroy(gameObject);
             }
@@ -72,7 +72,7 @@ public class bomb : MonoBehaviour
     private void createTrigger()
     {
         CircleCollider2D circleCollider = gameObject.AddComponent<CircleCollider2D>();
-        circleCollider.radius = 11f;
+        circleCollider.radius = 20f;
         circleCollider.offset = new Vector2(-0.15f, -0.61f);
         circleCollider.isTrigger = true;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class boomWall : MonoBehaviour
 {
 
-    private float destroy = 1f;
+    private float destroy = 4f;
 
     private bool bombNear = false;
     // Start is called before the first frame update
@@ -22,7 +22,10 @@ public class boomWall : MonoBehaviour
             {
                 bombNear = true;
                 GetComponent<Rigidbody2D>().gravityScale = 0.8f;
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(200, 300), ForceMode2D.Impulse);
+                float randomX = Random.Range(6500f, 9600f);
+                float randomY = Random.Range(5000f, 10000f);
+                Destroy(GetComponent<BoxCollider2D>());
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(randomX, randomY), ForceMode2D.Impulse);
             }
         }
     }
