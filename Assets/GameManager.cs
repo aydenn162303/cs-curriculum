@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public bool hasAxe = false;
     private bool udied = false;
+    public bool hasBomb = false;
     public static GameManager gm;
 
     public int getHealth()

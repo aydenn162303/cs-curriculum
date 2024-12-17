@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 7.5f), ForceMode2D.Impulse);
         }
 
-        if (Input.GetMouseButton(0) && throwCooldown < 0 && !overworld)
+        if (Input.GetMouseButton(0) && throwCooldown < 0 && !overworld && gm.hasBomb)
         {
             throwCooldown = 2;
             if (facingRight)
